@@ -21,7 +21,6 @@ abstract class Controller extends Request
     public function __construct($route)
     {
         parent::__construct();
-        $this->clientNumber = getSessionData('user') ?? $GLOBALS['user']; // TODO: change this then create auth
         $this->route = $route;
         $this->serverHost = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
         $this->response = new Response();
@@ -49,15 +48,6 @@ abstract class Controller extends Request
     {
         $this->acl = require DIR . 'application/acl/ACL.php';
         if($this->isAcl('all')) {
-            return true;
-        }
-        elseif(isAuthByAccountNotAnonymously() and isAuth() and $this->isAcl('not_anonymous_auth')) {
-            return true;
-        }
-        elseif(isAuthAnonymous() and isAuth() and $this->isAcl('anonymous_auth')) {
-            return true;
-        }
-        elseif(isAuth() and $this->isAcl('auth')) {
             return true;
         }
         return false;

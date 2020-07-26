@@ -28,11 +28,6 @@ class Router extends Controller
         if ($pos !== false)
             $url = stristr($url, '?', true);
 
-        // убирается scr/api при обращении из url
-        $pos = strripos($url, "scr/api/");
-        if ($pos !== false)
-            $url = substr($url, strlen("scr/api/"));
-
         foreach ($this->routes as $params) {
             if (preg_match($params['url'], $url, $matches)) {
                 if (strtoupper($params['method']) === $this->getMethod()) {

@@ -158,27 +158,6 @@ class View
         } else {
             throw new \Exception(self::$statusTexts[500], 500);
         }
-
-        switch ($type) {
-            case 'json':
-                self::json([], 'error', $code);
-            break;
-            case 'html':
-                $path = DIR . 'application/views/errors/' . $code . '.php';
-                if (file_exists(DIR . $path))
-                    require DIR . $path;
-                else {
-                    require DIR . 'application/views/errors/default.php';
-                }
-                break;
-
-        }
-//        $path = 'application/views/errors/' . $code . '.php';
-//        if(file_exists($path)) {
-//            require $path;
-//        }
-        exit();
-
     }
 
     public static function redirect($url) {
